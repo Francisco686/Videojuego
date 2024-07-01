@@ -40,7 +40,7 @@
                         <li class="nav-item"><a class="nav-link" href="{{ route('provedors.index') }}">Proveedores</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('empleados.index') }}">Empleados</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('entradas.create') }}">Entradas</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('tickets.create') }}">Tickets</a></li>
+                       
                         <li class="nav-item"><a class="nav-link" href="{{ route('telefonos.create') }}">Telefonos</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('venta_mayoreo.create') }}">Ventas Mayoreo</a></li>
                     </ul>
