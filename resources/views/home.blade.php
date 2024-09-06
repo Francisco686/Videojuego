@@ -625,70 +625,65 @@
     <script src="../assets/js/setting-demo2.js"></script>
 
     <script>
-        $(document).ready(function() {
-            // Toggle cart content
-            $('#cart-toggle').on('click', function(e) {
-                e.preventDefault();
-                $('#cart-content').toggleClass('open');
-            });
+$(document).ready(function() {
+    // Toggle cart content
+    $('#cart-toggle').on('click', function(e) {
+        e.preventDefault();
+        $('#cart-content').toggleClass('open');
+    });
 
-// Add to cart functionality
-$('.add-to-cart').on('click', function(e) {
-    e.preventDefault(); // Evitar que el enlace haga scroll o redirección
+    // Add to cart functionality
+    $('.add-to-cart').on('click', function(e) {
+        e.preventDefault(); // Evitar que el enlace haga scroll o redirección
 
-    // Obtener los datos del producto
-    let productId = $(this).data('id');
-    let productName = $(this).closest('.card-body').find('.card-title').text();
-    let productDescription = $(this).closest('.card-body').find('.card-text').not('.card-price').text();
-    let productPrice = $(this).closest('.card-body').find('.card-price').text().replace('Precio: $', '').trim();
-    let productImage = $(this).closest('.card').find('.card-img-top').attr('src');
+        // Obtener los datos del producto
+        let productId = $(this).data('id');
+        let productName = $(this).closest('.card-body').find('.card-title').text();
+        let productDescription = $(this).closest('.card-body').find('.card-text').not('.card-price').text().trim();
+        let productPrice = $(this).closest('.card-body').find('.card-price').text().replace('Precio: $', '').trim();
+        let productImage = $(this).closest('.card').find('.card-img-top').attr('src');
 
-    // Incrementar contador de carrito (opcional)
-    let cartCount = $('#cart-count').text();
-    $('#cart-count').text(parseInt(cartCount) + 1);
+        // Incrementar contador de carrito (opcional)
+        let cartCount = $('#cart-count').text();
+        $('#cart-count').text(parseInt(cartCount) + 1);
 
-    // Construir elemento del carrito
-    let cartItem = `
-        <div class="cart-item" data-id="${productId}">
-            <img src="${productImage}" class="cart-item-image" alt="${productName}">
-            <p class="cart-item-title">${productName}</p>
-          <div class="cart-item">
-    <p class="cart-item-description"></p>
-    <p class="cart-item-details">Precio:</p>
-</div>
-
-            <div class="cart-item-quantity">
-                <button class="decrement-quantity">-</button>
-                <input type="number" value="1" min="1" class="quantity-input">
-                <button class="increment-quantity">+</button>
+        // Construir elemento del carrito
+        let cartItem = `
+            <div class="cart-item" data-id="${productId}">
+                <img src="${productImage}" class="cart-item-image" alt="${productName}">
+                <p class="cart-item-title">${productName}</p>
+                <p class="cart-item-description">${productDescription}</p>
+                <p class="cart-item-price">Precio: $${productPrice}</p>
+                <div class="cart-item-quantity">
+                    <button class="decrement-quantity">-</button>
+                    <input type="number" value="1" min="1" class="quantity-input">
+                    <button class="increment-quantity">+</button>
+                </div>
             </div>
-        </div>
-    `;
+        `;
 
-    // Agregar elemento al carrito
-    $('#cart-items').append(cartItem);
+        // Agregar elemento al carrito
+        $('#cart-items').append(cartItem);
+    });
+
+    // Actualizar la cantidad del producto
+    $('#cart-items').on('click', '.increment-quantity', function() {
+        let $input = $(this).siblings('.quantity-input');
+        $input.val(parseInt($input.val()) + 1);
+    });
+
+    $('#cart-items').on('click', '.decrement-quantity', function() {
+        let $input = $(this).siblings('.quantity-input');
+        if (parseInt($input.val()) > 1) {
+            $input.val(parseInt($input.val()) - 1);
+        }
+    });
+
+    // Cerrar contenido del carrito
+    $('#cart-close').on('click', function() {
+        $('#cart-content').removeClass('open');
+    });
 });
-
-// Actualizar la cantidad del producto
-$('#cart-items').on('click', '.increment-quantity', function() {
-    let $input = $(this).siblings('.quantity-input');
-    $input.val(parseInt($input.val()) + 1);
-});
-
-$('#cart-items').on('click', '.decrement-quantity', function() {
-    let $input = $(this).siblings('.quantity-input');
-    if (parseInt($input.val()) > 1) {
-        $input.val(parseInt($input.val()) - 1);
-    }
-});
-
-
-
-            // Cerrar contenido del carrito
-            $('#cart-close').on('click', function() {
-                $('#cart-content').removeClass('open');
-            });
-        });
-    </script>
+</script>
 </body>
 </html>
