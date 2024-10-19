@@ -1,22 +1,22 @@
+<!-- resources/views/auth/login.blade.php -->
 @extends('layouts.app')
 
 @section('content')
-<div class="container d-flex justify-content-center align-items-center min-vh-100" style="background-color: #f7f7f7;">
-    <div class="row justify-content-center w-100">
+<div class="container">
+    <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card border-0 shadow-lg">
-                <div class="card-header bg-primary text-white text-center">
-                    <h4>{{ __('Login') }}</h4>
+            <div class="card shadow-lg border-0">
+                <div class="card-header text-center" style="background-color: #FF6347; color: white;">
+                    <h4>Iniciar Sesión en Aprende Jugando</h4>
                 </div>
 
-                <div class="card-body p-5">
+                <div class="card-body" style="background-color: #FFF8DC;">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
-                        <div class="mb-4">
-                            <label for="email" class="form-label">{{ __('Email Address') }}</label>
-                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
+                        <div class="form-group">
+                            <label for="email">Correo Electrónico</label>
+                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autofocus placeholder="Ingresa tu correo">
                             @error('email')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -24,10 +24,9 @@
                             @enderror
                         </div>
 
-                        <div class="mb-4">
-                            <label for="password" class="form-label">{{ __('Password') }}</label>
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
+                        <div class="form-group mt-3">
+                            <label for="password">Contraseña</label>
+                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required placeholder="Ingresa tu contraseña">
                             @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -35,27 +34,27 @@
                             @enderror
                         </div>
 
-                        <div class="mb-4 form-check">
-                            <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                            <label class="form-check-label" for="remember">
-                                {{ __('Remember Me') }}
-                            </label>
+                        <div class="form-group mt-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="remember" id="remember">
+                                <label class="form-check-label" for="remember">
+                                    Recuérdame
+                                </label>
+                            </div>
                         </div>
 
-                        <div class="d-grid mb-4">
-                            <button type="submit" class="btn btn-primary btn-lg">{{ __('Login') }}</button>
+                        <div class="form-group mt-4">
+                            <button type="submit" class="btn btn-primary btn-block" style="background-color: #32CD32; border: none;">
+                                Iniciar Sesión
+                            </button>
                         </div>
 
-                        <div class="text-center">
-                            @if (Route::has('password.request'))
-                                <a class="btn btn-link text-decoration-none" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
-                                </a>
-                            @endif
+                        <div class="text-center mt-3">
+                            <a href="{{ route('password.request') }}" style="color: #FF6347;">¿Olvidaste tu contraseña?</a>
                         </div>
 
-                        <div class="text-center mt-4">
-                            <a class="btn btn-outline-secondary btn-lg" href="{{ route('register') }}">{{ __('Register Now') }}</a>
+                        <div class="text-center mt-3">
+                            <p>¿No tienes una cuenta? <a href="{{ route('register') }}" style="color: #FF6347;">Regístrate aquí</a></p>
                         </div>
                     </form>
                 </div>
@@ -63,39 +62,4 @@
         </div>
     </div>
 </div>
-@endsection
-
-@section('styles')
-    <style>
-        body {
-            background-color: #f7f7f7; /* Fondo gris claro */
-        }
-        .card {
-            border-radius: 10px; /* Esquinas redondeadas */
-        }
-        .card-header {
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-        }
-        .btn-primary {
-            background-color: #007bff; /* Color principal */
-            border-color: #007bff;
-        }
-        .btn-primary:hover {
-            background-color: #0069d9; /* Color al pasar el ratón */
-            border-color: #0062cc;
-        }
-        .btn-outline-secondary {
-            color: #6c757d;
-            border-color: #6c757d;
-        }
-        .btn-outline-secondary:hover {
-            color: #fff;
-            background-color: #6c757d;
-            border-color: #6c757d;
-        }
-        .form-check-label {
-            margin-left: 10px; /* Separación entre el checkbox y el label */
-        }
-    </style>
 @endsection

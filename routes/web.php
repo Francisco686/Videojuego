@@ -39,3 +39,18 @@ Route::get('/dashboard', function () {
 Route::resource('tickets', TicketController::class);
 Route::get('tickets/{ticket}', 'TicketController@show')->name('tickets.show');
 Route::get('/tickets/{ticket}', 'TicketController@show')->name('tickets.show');
+
+
+use App\Http\Controllers\GameController;
+
+// Ruta para el juego de suma
+Route::get('juego/suma', [GameController::class, 'juegoSuma'])->name('juego.suma');
+
+// Ruta para el juego de suma
+Route::get('juego/suma', [GameController::class, 'juegoSuma'])->name('juego.suma');
+
+// Ruta para el juego de resta
+Route::get('juego/resta', [GameController::class, 'juegoResta'])->name('juego.resta');
+
+// Ruta para el juego de multiplicación
+Route::get('juego/multiplicacion', [GameController::class, 'juegoMultiplicacion'])->name('juego.multiplicacion');
