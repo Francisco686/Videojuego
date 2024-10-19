@@ -19,13 +19,72 @@
     <link href="{{ asset('kaiadmin-lite-1.0.0/assets/css/style.css') }}" rel="stylesheet">
     @yield('styles') {{-- Sección para estilos específicos de cada página --}}
 
+    <style>
+        /* Mejoras de estilo para la navbar */
+        .navbar {
+            background-color: #FF6347; /* Naranja atractivo */
+            padding: 15px;
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            color: #fff;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px #333;
+        }
+
+        .navbar-brand:hover {
+            color: #FFD700; /* Dorado en hover */
+        }
+
+        .nav-link {
+            font-size: 1.1rem;
+            color: #fff;
+            transition: color 0.3s;
+            margin-left: 15px;
+        }
+
+        .nav-link:hover {
+            color: #FFD700; /* Color dorado en hover */
+        }
+
+        .login-btn {
+            background-color: #32CD32;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            padding: 5px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .login-btn:hover {
+            background-color: #228B22;
+            transform: scale(1.05);
+        }
+
+        .dropdown-menu {
+            background-color: #FF6347;
+            border: none;
+        }
+
+        .dropdown-menu .dropdown-item {
+            color: #fff;
+        }
+
+        .dropdown-menu .dropdown-item:hover {
+            background-color: #FFD700;
+            color: #333;
+        }
+    </style>
+
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
     <div id="app">
         <!-- Navbar -->
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-dark shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     Aprende Jugando
@@ -45,12 +104,12 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">Iniciar Sesión</a>
+                                    <a class="nav-link login-btn" href="{{ route('login') }}">Iniciar Sesión</a>
                                 </li>
                             @endif
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">Registrarse</a>
+                                    <a class="nav-link login-btn" href="{{ route('register') }}">Registrarse</a>
                                 </li>
                             @endif
                         @else
