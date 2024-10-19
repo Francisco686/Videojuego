@@ -19,14 +19,14 @@
 
 <style>
     .game-container {
-        background-color: #FFFAE3; /* Fondo suave y claro */
+        background-color: #FFFAE3; 
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     .question-box {
-        background-color: #FFD700; /* Color dorado */
+        background-color: #FFD700; 
         border-radius: 10px;
         padding: 20px;
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -34,7 +34,7 @@
     }
 
     .question-box:hover {
-        transform: scale(1.05); /* Pequeño aumento de escala al pasar el ratón */
+        transform: scale(1.05); 
     }
 
     .feedback {
@@ -75,13 +75,13 @@
 </style>
 
 <script>
-    // Genera dos números aleatorios entre 1 y 10
+   
     let num1 = Math.floor(Math.random() * 10) + 1;
     let num2 = Math.floor(Math.random() * 10) + 1;
     document.getElementById('num1').textContent = num1;
     document.getElementById('num2').textContent = num2;
 
-    // Función para verificar la respuesta
+
     function checkAnswer() {
         const userAnswer = parseInt(document.getElementById('answer').value);
         const correctAnswer = num1 + num2;
@@ -93,12 +93,12 @@
             feedbackElement.innerHTML = '<p class="text-danger">Oops, incorrecto. La respuesta correcta era ' + correctAnswer + '.</p>';
         }
 
-        // Generar una nueva suma después de verificar
+        
         num1 = Math.floor(Math.random() * 10) + 1;
         num2 = Math.floor(Math.random() * 10) + 1;
         document.getElementById('num1').textContent = num1;
         document.getElementById('num2').textContent = num2;
-        document.getElementById('answer').value = ''; // Limpiar la respuesta
+        document.getElementById('answer').value = ''; 
     }
 </script>
 @endsection

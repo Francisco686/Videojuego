@@ -10,15 +10,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     <style>
-        /* Estilos para hacer el sitio amigable para niños */
         body {
             font-family: 'Comic Sans MS', cursive, sans-serif;
-            background-color: #f0f8ff; /* Color claro y relajante */
+            background-color: #f0f8ff; 
             color: #333;
         }
 
         .navbar {
-            background-color: #FF6347; /* Naranja atractivo */
+            background-color: #FF6347; 
             padding: 15px;
         }
         
@@ -51,7 +50,7 @@
         }
 
         .carousel-item {
-            background-color: #FFD700; /* Color dorado */
+            background-color: #FFD700; 
             color: #333;
             padding: 80px 20px;
             text-align: center;
@@ -68,14 +67,14 @@
         }
 
         .btn-primary {
-            background-color: #32CD32; /* Verde claro */
+            background-color: #32CD32; 
             border-color: #32CD32;
             font-size: 1.2rem;
             padding: 10px 20px;
         }
 
         .btn-primary:hover {
-            background-color: #228B22; /* Verde más oscuro */
+            background-color: #228B22; 
             border-color: #228B22;
         }
 
@@ -150,7 +149,7 @@
             </div>
             <div class="col-md-4">
                 <div class="game-card">
-                    <img src="{{ asset('img/juego-matematicas.png') }}" alt="Juego de Resta" class="card-img-top">
+                    <img src="{{ asset('img/resta.png') }}" alt="Juego de Resta" class="card-img-top">
                     <h3>¡Resta y Descubre!</h3>
                     <p>Resta números de una manera entretenida.</p>
                     <a href="{{ route('juego.resta') }}" class="btn btn-primary">Jugar</a>
@@ -158,7 +157,7 @@
             </div>
             <div class="col-md-4">
                 <div class="game-card">
-                    <img src="{{ asset('img/juego-matematicas.png') }}" alt="Juego de Multiplicación" class="card-img-top">
+                    <img src="{{ asset('img/multiplicacion.png') }}" alt="Juego de Multiplicación" class="card-img-top">
                     <h3>¡Multiplica y Aprende!</h3>
                     <p>Aprende las tablas de multiplicar con desafíos.</p>
                     <a href="{{ route('juego.multiplicacion') }}" class="btn btn-primary">Jugar</a>

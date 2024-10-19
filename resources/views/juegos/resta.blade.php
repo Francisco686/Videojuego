@@ -26,7 +26,7 @@
     }
 
     .question-box {
-        background-color: #FF7F50; /* Coral */
+        background-color: #FF7F50; 
         border-radius: 10px;
         padding: 20px;
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -54,13 +54,13 @@
 </style>
 
 <script>
-    // Genera dos números aleatorios, el primero siempre mayor para evitar negativos
+
     let num1 = Math.floor(Math.random() * 10) + 5;
     let num2 = Math.floor(Math.random() * 5) + 1;
     document.getElementById('num1').textContent = num1;
     document.getElementById('num2').textContent = num2;
 
-    // Función para verificar la respuesta
+
     function checkAnswer() {
         const userAnswer = parseInt(document.getElementById('answer').value);
         const correctAnswer = num1 - num2;
@@ -72,12 +72,12 @@
             feedbackElement.innerHTML = '<p class="text-danger">Oops, incorrecto. La respuesta correcta era ' + correctAnswer + '.</p>';
         }
 
-        // Generar una nueva resta después de verificar
+       
         num1 = Math.floor(Math.random() * 10) + 5;
         num2 = Math.floor(Math.random() * 5) + 1;
         document.getElementById('num1').textContent = num1;
         document.getElementById('num2').textContent = num2;
-        document.getElementById('answer').value = ''; // Limpiar la respuesta
+        document.getElementById('answer').value = ''; 
     }
 </script>
 @endsection
