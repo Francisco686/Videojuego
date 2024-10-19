@@ -3,17 +3,15 @@
 
 @section('content')
 <div class="container">
-    <h1 class="text-center">¡Juego de Restas!</h1>
-    <p class="text-center">Resuelve la resta y descubre si tu respuesta es correcta.</p>
+    <h1 class="text-center">¡Hurón y las Sandías!</h1>
+    <p class="text-center">Ayuda al hurón a comer sandías mientras restas puntos.</p>
 
     <div class="game-container mt-4 text-center">
-        <div id="question" class="question-box">
-            <h3 class="question-text">¿Cuánto es <span id="num1"></span> - <span id="num2"></span>?</h3>
-            <input type="number" id="answer" class="form-control mx-auto" style="width: 200px;" placeholder="Escribe tu respuesta" autocomplete="off">
-            <button class="btn btn-primary mt-3" onclick="checkAnswer()">Verificar</button>
+        <div id="gameArea" class="game-area">
+            <img id="huron" src="{{ asset('img/huron.png') }}" class="huron" alt="Hurón">
         </div>
-
-        <div id="feedback" class="feedback mt-3"></div>
+        <p class="mt-3">Puntuación: <span id="score">0</span></p>
+        <button class="btn btn-primary mt-3" onclick="startGame()">Iniciar Juego</button>
     </div>
 </div>
 
@@ -25,59 +23,90 @@
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    .question-box {
-        background-color: #FF7F50; 
+    .game-area {
+        background-color: #B3E5FC;
+        position: relative;
+        height: 500px;
         border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease-in-out;
+        overflow: hidden;
     }
 
-    .question-box:hover {
-        transform: scale(1.05);
+    .huron {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 100px;
     }
 
-    .feedback {
-        font-size: 1.5rem;
-        font-weight: bold;
-    }
-
-    .text-success {
-        color: #32CD32;
-        animation: bounce 0.5s ease;
+    .sandia {
+        position: absolute;
+        height: 50px;
     }
 
     .text-danger {
         color: #FF6347;
-        animation: shake 0.5s ease;
+        font-weight: bold;
     }
 </style>
 
 <script>
+    let score = 0;
+    let gameInterval;
+    const huron = document.getElementById('huron');
 
-    let num1 = Math.floor(Math.random() * 10) + 5;
-    let num2 = Math.floor(Math.random() * 5) + 1;
-    document.getElementById('num1').textContent = num1;
-    document.getElementById('num2').textContent = num2;
+    function startGame() {
+        score = 0;
+        document.getElementById('score').textContent = score;
 
+        gameInterval = setInterval(createSandia, 1000);
 
-    function checkAnswer() {
-        const userAnswer = parseInt(document.getElementById('answer').value);
-        const correctAnswer = num1 - num2;
-        const feedbackElement = document.getElementById('feedback');
+        document.addEventListener('keydown', moveHuron);
+    }
 
-        if (userAnswer === correctAnswer) {
-            feedbackElement.innerHTML = '<p class="text-success">¡Correcto! 🎉 ¡Buen trabajo!</p>';
-        } else {
-            feedbackElement.innerHTML = '<p class="text-danger">Oops, incorrecto. La respuesta correcta era ' + correctAnswer + '.</p>';
+    function moveHuron(event) {
+        const leftLimit = 0;
+        const rightLimit = document.getElementById('gameArea').offsetWidth - huron.offsetWidth;
+        let huronLeft = huron.offsetLeft;
+
+        const moveDistance = 30; // Aumenta el valor para moverse más rápido
+
+        if (event.key === 'ArrowLeft' && huronLeft > leftLimit) {
+            huron.style.left = huronLeft - moveDistance + 'px';
+        } else if (event.key === 'ArrowRight' && huronLeft < rightLimit) {
+            huron.style.left = huronLeft + moveDistance + 'px';
         }
+    }
 
-       
-        num1 = Math.floor(Math.random() * 10) + 5;
-        num2 = Math.floor(Math.random() * 5) + 1;
-        document.getElementById('num1').textContent = num1;
-        document.getElementById('num2').textContent = num2;
-        document.getElementById('answer').value = ''; 
+    function createSandia() {
+        const gameArea = document.getElementById('gameArea');
+        const sandia = document.createElement('img');
+        sandia.src = "{{ asset('img/sandia.png') }}";
+        sandia.classList.add('sandia');
+
+        sandia.style.left = Math.floor(Math.random() * (gameArea.offsetWidth - 50)) + 'px';
+        sandia.style.top = '0px';
+
+        gameArea.appendChild(sandia);
+
+        const fallInterval = setInterval(() => {
+            if (parseInt(sandia.style.top) >= gameArea.offsetHeight - 50) {
+                const huronLeft = huron.offsetLeft;
+                const sandiaLeft = parseInt(sandia.style.left);
+
+                if (sandiaLeft >= huronLeft && sandiaLeft <= huronLeft + huron.offsetWidth) {
+                    score -= 5;
+                    document.getElementById('score').textContent = score;
+                }
+
+                gameArea.removeChild(sandia);
+                clearInterval(fallInterval);
+            } else {
+                sandia.style.top = parseInt(sandia.style.top) + 5 + 'px';
+            }
+        }, 50);
     }
 </script>
 @endsection
+
+
