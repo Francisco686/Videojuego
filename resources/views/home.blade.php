@@ -45,6 +45,47 @@
             background-color: #228B22;
         }
 
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+
+        .user-menu img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .user-menu .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            display: none;
+        }
+
+        .user-menu:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 5px 0;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #f0f8ff;
+        }
+
         .carousel-inner {
             border-radius: 10px;
         }
@@ -95,13 +136,21 @@
             @guest
                 <a href="{{ route('login') }}" class="login-btn">Iniciar Sesión</a>
             @else
-                <a href="{{ route('logout') }}" class="login-btn"
-                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    Cerrar Sesión
-                </a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
+                <div class="user-menu">
+                    <img src="{{ asset('img/usuarios/' . Auth::user()->foto) }}" alt="Usuario">
+                    <span>{{ Auth::user()->name }}</span>
+                    <div class="dropdown-menu text-center">
+                        <a href="#">{{ Auth::user()->name }}</a>
+                        <br>
+                        <a href="{{ route('logout') }}" 
+                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            Cerrar Sesión
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </div>
+                </div>
             @endguest
         </div>
     </nav>

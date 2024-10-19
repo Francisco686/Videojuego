@@ -20,7 +20,6 @@
     @yield('styles') {{-- Sección para estilos específicos de cada página --}}
 
     <style>
-        /* Mejoras de estilo para la navbar */
         .navbar {
             background-color: #FF6347; /* Naranja atractivo */
             padding: 15px;
@@ -76,6 +75,13 @@
             background-color: #FFD700;
             color: #333;
         }
+
+        .user-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
     </style>
 
     <!-- Scripts -->
@@ -89,7 +95,7 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     Aprende Jugando
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -115,6 +121,11 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    @if(Auth::user()->avatar)
+                                        <img src="{{ asset('storage/' . Auth::user()->avatar) }}" class="user-avatar" alt="User Avatar">
+                                    @else
+                                        <img src="{{ asset('img/default-avatar.png') }}" class="user-avatar" alt="Default Avatar">
+                                    @endif
                                     {{ Auth::user()->name }}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -122,7 +133,7 @@
                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         Cerrar Sesión
                                     </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
                                 </div>
