@@ -3,8 +3,8 @@
 
 @section('content')
 <div class="container">
-    <h1 class="text-center">¡Recoge los Bloques y Suma!</h1>
-    <p class="text-center">Mueve el personaje para recoger los bloques con números y suma puntos.</p>
+    <h1 class="text-center">¡Recoge los Números en Orden y aprende a contar!</h1>
+    <p class="text-center">Mueve la estrella para recoger los números en orden y mejorar tu conteo.</p>
 
     <div class="game-container mt-4 text-center">
         <canvas id="gameCanvas" width="800" height="600" style="background-color: #B2EBF2; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);"></canvas>
@@ -27,20 +27,28 @@
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
     const player = {
-        x: canvas.width / 2 - 20,
-        y: canvas.height - 40,
-        width: 40,
-        height: 40,
+        x: canvas.width / 2 - 35,
+        y: canvas.height - 70,
+        size: 70,
         speed: 5,
         dx: 0,
     };
-    const blocks = [];
+    let blocks = [];
     let score = 0;
+    let nextNumber = 1;
     let gameInterval;
 
     function drawPlayer() {
-        ctx.fillStyle = '#32CD32';
-        ctx.fillRect(player.x, player.y, player.width, player.height);
+        ctx.fillStyle = '#FF0000';
+        ctx.beginPath();
+        const halfSize = player.size / 2;
+        ctx.moveTo(player.x + halfSize, player.y);
+        ctx.lineTo(player.x + player.size * 0.6, player.y + player.size * 0.8);
+        ctx.lineTo(player.x, player.y + player.size * 0.3);
+        ctx.lineTo(player.x + player.size, player.y + player.size * 0.3);
+        ctx.lineTo(player.x + player.size * 0.4, player.y + player.size * 0.8);
+        ctx.closePath();
+        ctx.fill();
     }
 
     function drawBlock(block) {
@@ -52,10 +60,11 @@
     }
 
     function createBlock() {
-        const size = 40;
-        const x = Math.floor(Math.random() * (canvas.width - size));
-        const value = Math.floor(Math.random() * 10) + 1;
-        blocks.push({ x, y: -size, size, value });
+        if (blocks.length === 0) {
+            const size = 40;
+            const x = Math.floor(Math.random() * (canvas.width - size));
+            blocks.push({ x, y: -size, size, value: nextNumber });
+        }
     }
 
     function drawBlocks() {
@@ -75,13 +84,15 @@
         blocks.forEach((block, index) => {
             if (
                 player.x < block.x + block.size &&
-                player.x + player.width > block.x &&
+                player.x + player.size > block.x &&
                 player.y < block.y + block.size &&
-                player.y + player.height > block.y
+                player.y + player.size > block.y &&
+                block.value === nextNumber
             ) {
                 score += block.value;
                 document.getElementById('score').textContent = score;
                 blocks.splice(index, 1);
+                nextNumber++;
             }
         });
     }
@@ -109,20 +120,21 @@
     function updatePlayerPosition() {
         player.x += player.dx;
         if (player.x < 0) player.x = 0;
-        if (player.x + player.width > canvas.width) player.x = canvas.width - player.width;
+        if (player.x + player.size > canvas.width) player.x = canvas.width - player.size;
     }
 
     function gameLoop() {
         updatePlayerPosition();
         update();
-        if (Math.random() < 0.05) createBlock();
+        createBlock();
     }
 
     function startGame() {
         clearInterval(gameInterval);
         score = 0;
+        nextNumber = 1;
         document.getElementById('score').textContent = score;
-        blocks.length = 0;
+        blocks = [];
         gameInterval = setInterval(gameLoop, 20);
     }
 
@@ -134,5 +146,3 @@
     document.addEventListener('keyup', stopPlayer);
 </script>
 @endsection
-
-
