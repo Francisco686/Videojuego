@@ -1,15 +1,16 @@
-<!-- resources/views/juegos/suma.blade.php -->
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h1 class="text-center">¡Recoge los Números en Orden y aprende a contar!</h1>
-    <p class="text-center">Mueve la estrella para recoger los números en orden y mejorar tu conteo.</p>
+<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="text-center">
+        <h1 class="text-center">¡Recoge los Números en Orden y aprende a contar!</h1>
+        <p class="text-center">Mueve la estrella para recoger los números en orden y mejorar tu conteo.</p>
 
-    <div class="game-container mt-4 text-center">
-        <canvas id="gameCanvas" width="800" height="600" style="background-color: #B2EBF2; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);"></canvas>
-        <p class="mt-3">Puntuación: <span id="score">0</span></p>
-        <button class="btn btn-primary mt-3" onclick="startGame()">Iniciar Juego</button>
+        <div class="game-container mt-4 text-center">
+            <canvas id="gameCanvas" width="800" height="600" style="background-color: #B2EBF2; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);"></canvas>
+            <p class="mt-3">Puntuación: <span id="score">0</span></p>
+            <button class="btn btn-primary mt-3" onclick="startGame()">Iniciar Juego</button>
+        </div>
     </div>
 </div>
 

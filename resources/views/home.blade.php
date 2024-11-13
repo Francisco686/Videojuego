@@ -191,8 +191,8 @@
             <div class="col-md-4">
                 <div class="game-card">
                     <img src="{{ asset('img/juego-matematicas.png') }}" alt="Juego de Suma" class="card-img-top">
-                    <h3>¡Suma y Gana!</h3>
-                    <p>¡Practica sumas básicas de forma divertida!</p>
+                    <h3>¡Cuenta y gana!</h3>
+                    <p>¡Práctica tu manera de contar !</p>
                     <a href="{{ route('juego.suma') }}" class="btn btn-primary">Jugar</a>
                 </div>
             </div>
