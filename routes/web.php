@@ -16,6 +16,10 @@ use App\Http\Controllers\GameController;
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PlanetaController;
+
+use App\Http\Controllers\RuletaController;
+
 
 // Ruta para la página de inicio usando HomeController
 Route::get('home', [HomeController::class, 'index'])->name('home.index');
@@ -58,3 +62,16 @@ Route::get('juego/multiplicacion', [GameController::class, 'juegoMultiplicacion'
 Route::get('/', function () {
     return redirect()->route('home.index');
 });
+
+
+Route::get('/ruleta', [PlanetaController::class, 'mostrarRuleta']);
+
+Route::get('/planetas', [PlanetaController::class, 'index']); 
+Route::get('/planeta/{id}', [PlanetaController::class, 'obtenerInformacion']); 
+Route::post('/planeta', [PlanetaController::class, 'store']);
+Route::put('/planeta/{id}', [PlanetaController::class, 'update']); 
+Route::delete('/planeta/{id}', [PlanetaController::class, 'destroy']); 
+Route::get('/ruleta', [RuletaController::class, 'index'])->name('juego.ruleta');
+
+
+Route::get('/ruleta', [RuletaController::class, 'index'])->name('juego.ruleta');
